@@ -6,19 +6,28 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ContentView: View {
+    @StateObject var viewModel = MovieViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            NavigationView {
+                MovieListView(viewModel: viewModel,navigationTitle: "Upcoming Movies",isPopular: false)
+            }
+            .tabItem {
+                Image(systemName: "calendar")
+                Text("Upcoming")
+            }
+            
+            NavigationView {
+                MovieListView(viewModel: viewModel,navigationTitle: "Popular Movies",isPopular: true)
+            }
+            .tabItem {
+                Image(systemName: "star")
+                Text("Popular")
+            }
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
